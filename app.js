@@ -23,7 +23,15 @@ app.post('/post-form', (req, res) => {
         // console.log(result);
         if(err) console.log(err);
     })
-    res.render('home');
+    const Query = "Select * from contacts";
+    pool.query(Query, (err, result) => {
+        // console.log(result);
+        if(err) res.send(err);
+        var s = JSON.stringify(result);
+        const userData = JSON.parse(s);
+        res.render('home', { userData });
+    })
+    
 });
 
 app.get('/contact', (req, res) => {

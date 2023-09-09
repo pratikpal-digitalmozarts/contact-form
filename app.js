@@ -13,18 +13,18 @@ app.get('/', (req, res) => {
 });
 
 
-app.post('/post-form', (req, res) => {
+app.post('/post-form', async (req, res) => {
     personname = req.body.personname;
     email = req.body.email;
     pno = req.body.pno;
     console.log(personname, email, pno);
     const sqlQuery = "INSERT INTO contacts (name, email, phone) VALUES ('"+ personname+ "', '"+ email + "', '" + pno + "')";
-    pool.query(sqlQuery, (err, result) => {
+    await pool.query(sqlQuery, (err, result) => {
         // console.log(result);
         if(err) console.log(err);
     })
     const Query = "Select * from contacts";
-    pool.query(Query, (err, result) => {
+    await pool.query(Query, (err, result) => {
         // console.log(result);
         if(err) res.send(err);
         var s = JSON.stringify(result);

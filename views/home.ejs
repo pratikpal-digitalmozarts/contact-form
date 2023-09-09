@@ -32,9 +32,41 @@
                 <input type="tel" class="form-control" id="phone" name="pno" placeholder="Enter your phone number">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
+            <% if (typeof userData !== 'undefined') { %>
+                <br> <br> 
+            <button type="button" class="btn btn-primary" onclick="show()">Show Data</button>
+            <% } %>
         </form>
     </div>
-
+    <script>
+        function show() {
+            document.getElementById("contact-list").style.display = "block";
+        }
+    </script>
+    <% if (typeof userData !== 'undefined') { %>
+    <div class="container mt-5" id="contact-list" style="display: none;">
+        <h2>Contact List</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% userData.forEach(user => { %>
+                    <tr>
+                      <td><%= user.name %></td>
+                      <td><%= user.email %></td>
+                      <td><%= user.phone %></td>
+                    </tr>
+                <% }); %>
+                
+            </tbody>
+        </table>
+    </div>
+    <% } %>
     <!-- Include Bootstrap JS and jQuery (optional) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
